@@ -1,23 +1,27 @@
 let WEATHER_DATA = []; //
-let weatherState = 'main-condition';
+let condition;
+let weatherState = 'wind-speed';
 let city = 'Bronx';
 
 const CONDITIONS = {
-  main: {
-    'Clear': 'https://media1.giphy.com/media/CPutABwbvXC92/giphy.gif',
-    'Few clouds': 'https://media2.giphy.com/media/YA5oXxbyy8N5C/giphy.gif',
-    'Clouds': 'https://media3.giphy.com/media/UST4N8TmgPQbu/giphy.gif',
-    'Scattered clouds': 'https://media3.giphy.com/media/ahwtN1ulz1d16/giphy.gif',
-    'Broken clouds': 'https://media0.giphy.com/media/lTtZlD73suHHW/giphy.gif',
-    'Shower rain': 'https://media3.giphy.com/media/3oKIPstwMF15FghbYQ/giphy.gif',
-    'Rain': 'https://media1.giphy.com/media/TVpeXDi8xTlyo/giphy.gif',
-    'Thunderstorm': 'https://media3.giphy.com/media/ubt6NMYKZnEBi/200w.webp',
-    'Snow': 'https://media1.giphy.com/media/l2JIaYp6P3WT5Ybu0/giphy.gif',
-    'Mist': 'https://media3.giphy.com/media/xT5LMJW2TEgFi59bUY/giphy.gif'
-  },
   wind: ['https://media2.giphy.com/media/DeAIC76F52wqk/giphy.gif', 'https://media.giphy.com/media/d1E1pZ1cdgWmY0hy/giphy.gif', 'https://media2.giphy.com/media/d2W6sksZ9o3qopUc/giphy.gif'],
   temperature:['https://media2.giphy.com/media/3o6Mbdaf8b2sJzemas/giphy.gif', 'https://media0.giphy.com/media/qIu1S3L1a8J7q/giphy.gif', 'https://media1.giphy.com/media/wpz49v8alq4da/giphy.gif', 'https://media0.giphy.com/media/26BREnyYXsPOxlUKk/giphy.gif']
+
+
 };
+
+const BACKGROUNDS = {
+    'Clear': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Few clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Scattered clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Broken clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Shower rain': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Rain': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Thunderstorm': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Snow': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
+    'Mist': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif'
+}
 
 function handleCitySubmit(){
     $('.location-form').submit(event => {
@@ -42,27 +46,38 @@ function fetchWeatherData(){
     dataType: "jsonp",
     success: function(data) {
       WEATHER_DATA = data;
+      condition = WEATHER_DATA.weather[0].main;
       console.log('weatherdata from fetchWeatherData: ' + WEATHER_DATA);
       initMap();
+      renderCityData();
+      renderBackground();
       renderWeatherCondition();
     }
   });
 }
 
+function renderCityData() {
+    $('.city-name').text(`City: ${city}`);
+    $('.city-condition').text(`Weather Condition: ${condition}`);
+}
+
+function renderBackground() {
+    $('body').css('background-image', `url(${BACKGROUNDS[condition]})`);
+}
+
 function renderWeatherCondition() {
     switch (weatherState) {
-      case 'main-condition':
-        let condition = WEATHER_DATA.weather[0].main;
-        $('.weather-image').html(`<img src=${CONDITIONS.main[condition]} class='gif-image'>`);
-        $('body').css('background-image', 'url(${CONDITIONS.main[condition])');
-        $('.weather-text').html(`<p>${condition}</p>`);
-        break;
       case 'wind-speed':
         renderWindCondition();
         break;
       case 'temp-measure':
         renderTemperatureCondition();
         break;
+
+
+
+
+
       default:
         break;
     }
@@ -105,12 +120,10 @@ function renderWindCondition(){
   if(windspeed >= .1 && windspeed <= 5){
     $('.weather-image').html(`<img src=${CONDITIONS.wind[0]} class='gif-image'>`);
     $('.weather-text').html(`<p>Light Breeze ${windspeed}m/s</p>`);
-    $('body').css('background-image', 'url(https://media0.giphy.com/media/12zFlnyyTRmIkU/giphy.gif)');
     console.log(CONDITIONS.main.condition[0])
   }else if(windspeed >= 5.01 && windspeed <= 16.99){
     $('.weather-image').html(`<img src=${CONDITIONS.wind[1]} class='gif-image'>`);
     $('.weather-text').html(`<p>Moderate Breeze ${windspeed}m/s</p>`);
-    $('body').css('background-image', 'url(https://media0.giphy.com/media/12zFlnyyTRmIkU/giphy.gif)');
 console.log(CONDITIONS.main[condition][0]);
   }else if(windspeed >= 17 && windspeed <= 27){
     $('.weather-image').html(`<img src=${CONDITIONS.wind[2]}>`);
@@ -148,12 +161,10 @@ function renderTemperatureCondition(){
     //</div>`)
 //}
 
-
 function start() {
     fetchWeatherData();
     handleCitySubmit();
     handleWeatherClick();
 }
-
 
 $(start());
