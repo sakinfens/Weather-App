@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang='en'>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -7,8 +7,19 @@
     <link href="index.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <header role=''>
-      <h2>Weather App</h2>
+    <header role='banner'>
+      <div class='banner-images'>
+        <img src="http://openweathermap.org/img/w/01d.png" class= 'image one'>
+        <img src="http://openweathermap.org/img/w/02d.png" class= 'image two'>
+        <img src="http://openweathermap.org/img/w/02d.png" class= 'image'>
+        <img src="http://openweathermap.org/img/w/03d.png" class= 'image'>
+        <img src="http://openweathermap.org/img/w/04d.png" class= 'image'>
+        <img src="http://openweathermap.org/img/w/09d.png" class= 'image'>
+        <img src="http://openweathermap.org/img/w/10d.png" class= 'image'>
+        <img src="http://openweathermap.org/img/w/11d.png" class= 'image'>
+        <img src="http://openweathermap.org/img/w/13d.png" class= 'image'>
+      </div>
+      <h2>The Fun Weather Map</h2>
       <form role='search' class='location-form'>
         <fieldset>
           Location: <input id= 'location' type="text">
@@ -16,14 +27,13 @@
         </fieldset>
       </form>
     </header>
-
-    <main>
+    <main role ='main'>
       <div class='container'>
         <div id='map'></div>
         <div class='weather-options'>
           <button class= 'main-condition'>Conditions</button>
           <button class='wind-speed'>Wind</button>
-          <button class='temp-measure'>Temperature</button>
+          <button class='temp-measure'>Temperture</button>
           <div class='weather-image'></div>
           <span class='weather-text'></span>
         </div>
