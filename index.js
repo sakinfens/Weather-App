@@ -5,22 +5,22 @@ let city = 'Bronx';
 
 const CONDITIONS = {
   wind: ['https://media2.giphy.com/media/DeAIC76F52wqk/giphy.gif', 'https://media.giphy.com/media/d1E1pZ1cdgWmY0hy/giphy.gif', 'https://media2.giphy.com/media/d2W6sksZ9o3qopUc/giphy.gif'],
-  temperature:['https://media2.giphy.com/media/3o6Mbdaf8b2sJzemas/giphy.gif', 'https://media0.giphy.com/media/qIu1S3L1a8J7q/giphy.gif', 'https://media1.giphy.com/media/wpz49v8alq4da/giphy.gif', 'https://media0.giphy.com/media/26BREnyYXsPOxlUKk/giphy.gif']
-
+  temperature:['https://media2.giphy.com/media/3o6Mbdaf8b2sJzemas/giphy.gif', 'https://media0.giphy.com/media/qIu1S3L1a8J7q/giphy.gif', 'https://media1.giphy.com/media/wpz49v8alq4da/giphy.gif', 'https://media0.giphy.com/media/26BREnyYXsPOxlUKk/giphy.gif'],
+  humidity:['https://media3.giphy.com/media/l0HlAnuooBUpOE1bi/giphy.gif','https://media0.giphy.com/media/l41m39GpkjPpbOqqc/giphy.gif','https://media3.giphy.com/media/bbwJaAzogpjfq/giphy.gif','https://media1.giphy.com/media/8dl1ITvPmV99S/giphy.gif']
 
 };
-
+yotuuut = 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif'
 const BACKGROUNDS = {
     'Clear': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
     'Few clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
-    'Clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
-    'Scattered clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
-    'Broken clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
-    'Shower rain': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
-    'Rain': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
-    'Thunderstorm': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
-    'Snow': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
-    'Mist': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif'
+    'Clouds': 'https://media3.giphy.com/media/HoUgegTjteXCw/giphy.gif',
+    'Scattered clouds': '',
+    'Broken clouds': '',
+    'Shower rain': '',
+    'Rain': 'https://media2.giphy.com/media/KWuI55w6kpMFq/giphy.gif',
+    'Thunderstorm': 'https://media2.giphy.com/media/bNtxdXNlREyhG/giphy.gif',
+    'Snow': 'https://media2.giphy.com/media/aAZ5fQlKWMbpC/giphy.gif',
+    'Mist': 'https://media1.giphy.com/media/zVZIQztV2FMs0/giphy.gif'
 }
 
 function handleCitySubmit(){
@@ -51,7 +51,8 @@ function fetchWeatherData(){
       initMap();
       renderCityData();
       renderBackground();
-      renderWeatherCondition();
+      renderWeatherCondition()
+      renderWindCondition();
     }
   });
 }
@@ -73,11 +74,9 @@ function renderWeatherCondition() {
       case 'temp-measure':
         renderTemperatureCondition();
         break;
-
-
-
-
-
+      case 'humidity-level':
+        renderHumidityCondition();
+        break;
       default:
         break;
     }
@@ -150,6 +149,28 @@ function renderTemperatureCondition(){
     $('.weather-text').html(`<p>${temp}°C</p>`);
   }
 }
+
+function renderHumidityCondition(){
+  let humid = WEATHER_DATA.main.humidity;
+  if(humid >= 0 && humid <=25){
+    $('.weather-image').html(`<img src=${CONDITIONS.humidity[0]} class='gif-image'>`);
+    $('.weather-text').html(`<p>${humid}%</p>`);
+  }
+  else if(humid >= 26 && humid <=50){
+    $('.weather-image').html(`<img src=${CONDITIONS.humidity[1]} class='gif-image'>`);
+    $('.weather-text').html(`<p>${humid}%</p>`);
+  }
+  else if(humid >= 51 && humid <=75){
+    $('.weather-image').html(`<img src=${CONDITIONS.humidity[2]} class='gif-image'>`);
+    $('.weather-text').html(`<p>${humid}%</p>`);
+  }
+  else if(humid >= 76 && humid <=100){
+    $('.weather-image').html(`<img src=${CONDITIONS.humidity[3]} class='gif-image'>`);
+    $('.weather-text').html(`<p>${humid}%</p>`);
+  }
+}
+
+
 
 //function renderWeatherHistory(){
   //console.log(weatherState);
