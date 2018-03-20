@@ -7,9 +7,8 @@ const CONDITIONS = {
   wind: ['https://media2.giphy.com/media/DeAIC76F52wqk/giphy.gif', 'https://media.giphy.com/media/d1E1pZ1cdgWmY0hy/giphy.gif', 'https://media2.giphy.com/media/d2W6sksZ9o3qopUc/giphy.gif'],
   temperature:['https://media2.giphy.com/media/3o6Mbdaf8b2sJzemas/giphy.gif', 'https://media0.giphy.com/media/qIu1S3L1a8J7q/giphy.gif', 'https://media1.giphy.com/media/wpz49v8alq4da/giphy.gif', 'https://media0.giphy.com/media/26BREnyYXsPOxlUKk/giphy.gif'],
   humidity:['https://media3.giphy.com/media/l0HlAnuooBUpOE1bi/giphy.gif','https://media0.giphy.com/media/l41m39GpkjPpbOqqc/giphy.gif','https://media3.giphy.com/media/bbwJaAzogpjfq/giphy.gif','https://media1.giphy.com/media/8dl1ITvPmV99S/giphy.gif']
-
 };
-yotuuut = 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif'
+
 const BACKGROUNDS = {
     'Clear': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
     'Few clouds': 'https://media1.giphy.com/media/z4Qquuhfjc3QI/giphy.gif',
@@ -21,7 +20,7 @@ const BACKGROUNDS = {
     'Thunderstorm': 'https://media2.giphy.com/media/bNtxdXNlREyhG/giphy.gif',
     'Snow': 'https://media2.giphy.com/media/aAZ5fQlKWMbpC/giphy.gif',
     'Mist': 'https://media1.giphy.com/media/zVZIQztV2FMs0/giphy.gif'
-}
+};
 
 function handleCitySubmit(){
     $('.location-form').submit(event => {
@@ -29,7 +28,6 @@ function handleCitySubmit(){
       const area = $(event.currentTarget).find('#location');
       city = area.val();
       area.val(" ");
-      weatherState = 'main-condition';
       fetchWeatherData();
     });
 }
@@ -51,8 +49,8 @@ function fetchWeatherData(){
       initMap();
       renderCityData();
       renderBackground();
-      renderWeatherCondition()
-      renderWindCondition();
+      renderWeatherCondition();
+      renderButtonActive();
     }
   });
 }
@@ -103,10 +101,22 @@ function initMap() {
 function handleWeatherClick() {
     $('.weather-options').on( "click", "button", function( event ) {
         event.preventDefault();
-        weatherState = $(this).attr('class');
+        renderButtonInactive();
+        let classes = $(this).attr('class').split(" ");
+        weatherState = classes[0];
+        renderButtonActive();
         renderWeatherCondition();
         //renderWeatherHistory();
     });
+}
+
+function renderButtonInactive() {
+    let classes = weatherState + ' active';
+    $(`button[class="${classes}"]`).removeClass('active');
+}
+
+function renderButtonActive() {
+    $(`button[class=${weatherState}]`).addClass('active');
 }
 
 // their weather selection from input will be passed to the
@@ -119,11 +129,9 @@ function renderWindCondition(){
   if(windspeed >= .1 && windspeed <= 5){
     $('.weather-image').html(`<img src=${CONDITIONS.wind[0]} class='gif-image'>`);
     $('.weather-text').html(`<p>Light Breeze ${windspeed}m/s</p>`);
-    console.log(CONDITIONS.main.condition[0])
   }else if(windspeed >= 5.01 && windspeed <= 16.99){
     $('.weather-image').html(`<img src=${CONDITIONS.wind[1]} class='gif-image'>`);
     $('.weather-text').html(`<p>Moderate Breeze ${windspeed}m/s</p>`);
-console.log(CONDITIONS.main[condition][0]);
   }else if(windspeed >= 17 && windspeed <= 27){
     $('.weather-image').html(`<img src=${CONDITIONS.wind[2]}>`);
     $('.weather-text').html(`<p>Strong Gale ${windspeed}m/s</p>`);
@@ -169,18 +177,6 @@ function renderHumidityCondition(){
     $('.weather-text').html(`<p>${humid}%</p>`);
   }
 }
-
-
-
-//function renderWeatherHistory(){
-  //console.log(weatherState);
-  //console.log('yesboy')
-  //$('main').append(`
-    //<div class= 'weather-history'>
-   // <p>${city}<p/>
-    //<p>${weatherState}</p>
-    //</div>`)
-//}
 
 function start() {
     fetchWeatherData();

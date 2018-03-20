@@ -13,6 +13,10 @@ button, input, a {
     cursor: pointer;
 }
 
+.active {
+    background: #DC4C46;
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -21,7 +25,6 @@ body {
   font-family: 'DK Cool Crayon';
   background-size: cover;
   background-repeat: no-repeat;
-  border: 1px solid red;
   height: 100%;
 }
 
@@ -31,9 +34,10 @@ header {
   padding: 0 25px;
 }
 
-h2{
+.title {
   margin: 20px auto 0;
   width: 30%;
+  min-width: 380px;
   font-size: 30px;
   display: block;
   text-align: center;
@@ -47,6 +51,7 @@ h2{
   color: white;
   margin: 0 auto;
   width: 30%;
+  min-width: 380px;
   background: black;
   border-radius: 15px;
   text-align: center;
@@ -55,20 +60,27 @@ h2{
 fieldset {
   border: 1px solid black;
   padding: 15px;
-  font-size: 16px;
+  font-size: 18px;
   margin: 0 auto;
   background: black;
   border-radius: 0 0 20px 20px;
 }
 
+input[type='text'] {
+    padding: 5px;
+}
+
 input[type='submit'] {
-  font-size: 16px;;
-  background: black;
-  color: #eee;
+  font-size: 16px;
+  color: #fff;
   border: 0;
-  padding: 8px;
-  background: green;
-  border-radius: 15px;
+  padding: 10px;
+  background: #79C753;
+  margin-left: 8px;
+}
+
+input[type='submit']:hover {
+    background: #50922f;
 }
 
 main {
@@ -91,6 +103,8 @@ main {
 
 .container {
   width: 90%;
+  min-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
   font-size: 0px;
   border-radius: 15px;
@@ -125,12 +139,7 @@ button {
 }
 
 button:hover {
-  background: blue;
-}
-
-button:active {
-  background: transparent;
-  color: black;
+  background: #DC4C46;
 }
 
 footer {
@@ -155,8 +164,13 @@ footer {
   border: solid black 1px;
   display: block;
   text-align: center;
-  font-size: 30px;
-  background-color: yellow;
+  font-size: 20px;
+  background-color: #F6D155;
+}
+
+.submit-weather {
+    max-width: 500px;
+    margin: 0 auto;
 }
 
 .banner-images{
@@ -177,5 +191,5 @@ footer {
 }
 
 header{
-  height: 200px;
+  height: 100px;
 }
