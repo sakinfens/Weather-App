@@ -45,18 +45,25 @@ function fetchWeatherData(){
     success: function(data) {
       WEATHER_DATA = data;
       condition = WEATHER_DATA.weather[0].main;
-      console.log('weatherdata from fetchWeatherData: ' + WEATHER_DATA);
+      console.log('weatherdata from fetchWeatherData: ' + JSON.stringify(WEATHER_DATA, undefined, 2));
       initMap();
       renderCityData();
       renderBackground();
       renderWeatherCondition();
       renderButtonActive();
-    }
+  },
+  error: handleError = function(xhr, status) {
+      handleCityError();
+  }
   });
 }
 
+function handleCityError() {
+    $('.location-form').append(`<p class='city-error'>Please enter correct city name<p>`);
+}
+
 function renderCityData() {
-    $('.city-name').text(`City: ${city}`);
+    $('.city-name').text(`City: ${city.toUpperCase()}`);
     $('.city-condition').text(`Weather Condition: ${condition}`);
 }
 

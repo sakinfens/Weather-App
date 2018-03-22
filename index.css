@@ -55,11 +55,12 @@ header {
   background: black;
   border-radius: 15px;
   text-align: center;
+  position: relative;
 }
 
 fieldset {
   border: 1px solid black;
-  padding: 15px;
+  padding: 35px 15px;
   font-size: 18px;
   margin: 0 auto;
   background: black;
@@ -81,6 +82,20 @@ input[type='submit'] {
 
 input[type='submit']:hover {
     background: #50922f;
+}
+
+.city-error {
+    background: white;
+    font-size: 16px;
+    color: #DC143C;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 0 0 15px 15px;
+    font-weight: bold;
+    position: absolute;
+    top: 65px;
+    width: 100%;
+
 }
 
 main {
