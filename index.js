@@ -15,10 +15,11 @@ const BACKGROUNDS = {
     'Clouds': 'https://media3.giphy.com/media/HoUgegTjteXCw/giphy.gif',
     'Scattered clouds': '',
     'Broken clouds': '',
-    'Shower rain': '',
+    'Drizzle': 'https://media3.giphy.com/media/Rp6Gqh3j1FKM0/giphy.gif',
     'Rain': 'https://media2.giphy.com/media/KWuI55w6kpMFq/giphy.gif',
     'Thunderstorm': 'https://media2.giphy.com/media/bNtxdXNlREyhG/giphy.gif',
     'Snow': 'https://media2.giphy.com/media/aAZ5fQlKWMbpC/giphy.gif',
+    'Haze':'',
     'Mist': 'https://media1.giphy.com/media/zVZIQztV2FMs0/giphy.gif'
 };
 
@@ -29,6 +30,8 @@ function handleCitySubmit(){
       city = area.val();
       area.val(" ");
       fetchWeatherData();
+       $('.city-error').text('');
+       $('.city-error').css('background', 'black')
     });
 }
 
@@ -57,11 +60,9 @@ function fetchWeatherData(){
   }
   });
 }
-
 function handleCityError() {
     $('.location-form').append(`<p class='city-error'>Please enter correct city name<p>`);
 }
-
 function renderCityData() {
     $('.city-name').text(`City: ${city.toUpperCase()}`);
     $('.city-condition').text(`Weather Condition: ${condition}`);
